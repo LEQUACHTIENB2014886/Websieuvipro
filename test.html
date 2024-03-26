@@ -1,0 +1,39 @@
+<form id="myform" method="post" action="./select/chap.php">
+    <input type="hidden" name="linktruyen" id="linktruyen" value="">
+  </form>
+  <?php
+					if ($count1 % 4 == 0) {	
+						echo '<div class="row">';		
+						while ($row = $stmt8->fetch()) {
+							echo '<div class="col-3">';
+							echo '<a href="./select/chap.php" data-linktruyen="' . $row['linktruyen'] . '"><img src="data:image/jpg;base64,' . base64_encode($row['anh']) . '" width="1000%"></a>';
+							echo '<div class="aaa text-center"><b><a href="./select/chap.php" class="text-info" data-linktruyen="' . $row['linktruyen'] . '">' . $row['tentruyen'] . '</a></b></div>';
+							echo '</div>';
+							$count1++;
+						}
+						echo '</div>';	
+					} else {		
+						while ($row = $stmt8->fetch()) {
+							echo '<div class="col-3">';
+							echo '<a href="./select/chap.php" data-linktruyen="' . $row['linktruyen'] . '"><img src="data:image/jpg;base64,' . base64_encode($row['anh']) . '" width="1000%"></a>';
+							echo '<div class="aaa text-center"><b><a href="./select/chap.php" class="text-info" data-linktruyen="' . $row['linktruyen'] . '">' . $row['tentruyen'] . '</a></b></div>';
+							echo '</div>';
+							$count1++;	
+						}
+					}
+				?>
+                <script>
+                    var links = document.getElementsByTagName("a");
+                    for (var i = 0; i < links.length; i++) {
+                    links[i].addEventListener("click", function(event) {
+                        // Lấy giá trị của cột linktruyen từ thẻ a
+                        var linktruyen = this.getAttribute("data-linktruyen");
+                        // Đặt giá trị của input hidden linktruyen
+                        document.getElementById("linktruyen").value = linktruyen;
+                        // Gửi form đi
+                        document.getElementById("myform").submit();
+                        // Ngăn chặn hành động mặc định của sự kiện click
+                        event.preventDefault();
+                    });
+                    }
+                </script>
